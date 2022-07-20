@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 
 const {
-  connectToDb,
-  authenticateToken,
   generateToken,
   signupUser,
 } = require("../functions/functions");
@@ -14,14 +12,18 @@ app.post("/login", async (req, res) => {
   let { username, password } = req.body;
   // verify username and password generate and send jwt token
   let response = await generateToken(username, password);
-  res.header(response)
-  res.send("User logged in successfully.")
+  if (typeof response == "object") {
+    res.header(response);
+    res.json("User logged in successfully");
+  } else {
+    res.json(response);
+  }
 });
 
 app.post("/signup", async (req, res) => {
   let { name, username, password } = req.body;
   let response = await signupUser(name, username, password);
-  res.send(response);
+  res.json(response);
 });
 
 module.exports = { loginSignupRoute: app };

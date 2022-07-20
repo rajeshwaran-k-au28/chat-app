@@ -8,16 +8,22 @@ var cl = console.log;
 
 //helper functions
 async function connectToDb() {
-  cl("Connecting to database..");
-  await mongoose.connect(process.env.mongoUri);
-  cl("Connection successfull!");
+  try {
+    cl("Connecting to database..");
+    await mongoose.connect(process.env.mongoUri);
+    cl("Connection successfull!");
+    return "Connection successfull!";
+  } catch (error) {
+    cl(error);
+    return error;
+  }
 }
 function hashPassword(password) {
-  cl("Hashing user password...")
+  cl("Hashing user password...");
   const saltRounds = 5;
   const salt = bcrypt.genSaltSync(saltRounds);
   let hash = bcrypt.hashSync(password, salt);
-  cl("Password hash successfull!")
+  cl("Password hash successfull!");
   return hash;
 }
 
@@ -37,33 +43,37 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
-//verify username, password and generate jwt token
+//handles LOGIN -> verify username, password and generate jwt token
 async function generateToken(username, password) {
   // await connectToDb()
-  cl("Finding matching account..");
-  let userInfo = await userModel.findOne({ username: username });
-  if (userInfo) {
-    //checking user entered password with hash from DB
-    let verified = bcrypt.compareSync(password, userInfo.hash);
-    if (userInfo.username == username && verified) {
-      let payload = { username: username, isLogged: true };
-      let token = jwt.sign(payload, process.env.signature, {
-        algorithm: "HS384",
-        expiresIn: "1d",
-      });
-      let response = {
-        jwtToken: token,
-        message: "Authentication successfull",
-      };
-      cl(`user "${username}" is authenticated succesfully!`);
-      return response;
+  try {
+    cl("Finding matching account..");
+    let userInfo = await userModel.findOne({ username: username });
+    if (userInfo) {
+      //checking user entered password with hash from DB
+      let verified = bcrypt.compareSync(password, userInfo.hash);
+      if (userInfo.username == username && verified) {
+        let payload = { username: username, isLogged: true };
+        let token = jwt.sign(payload, process.env.signature, {
+          algorithm: "HS384",
+          expiresIn: "1d",
+        });
+        let response = {
+          jwtToken: token,
+          message: "Authentication successfull",
+        };
+        cl(`user "${username}" is authenticated succesfully!`);
+        return response;
+      } else {
+        cl("Invalid Password.");
+        return "Invalid username or password";
+      }
     } else {
-      cl("Invalid Password.");
-      return "Invalid username or password";
+      cl("Username not matching.");
+      return "User Not Found, please signup.";
     }
-  } else {
-    cl("Username not matching.");
-    return "User Not Found, please signup.";
+  } catch (error) {
+    return error;
   }
 }
 
@@ -83,6 +93,7 @@ async function signupUser(name, username, password) {
     return `${name} user has been created successfully`;
   } catch (error) {
     cl(error);
+    return error;
   }
 }
 
