@@ -1,0 +1,100 @@
+#container {
+    width: 60%;
+    height: 70%;
+    background-color: aqua;
+    display: flex;
+}
+#users-container {
+    width: 30%;
+    background-color: blueviolet;
+}
+/* name and usernames list */
+#users-list-header {
+    background-color: aquamarine;
+    height: 15%;
+}
+#users-list-header h2 {
+    margin: 0;
+    padding: 15px 10px 10px 10px;
+    text-align: center;
+}
+
+#list-of-users {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+   
+}
+.user-line {
+    margin: 10px 0 10px 0;
+
+    /* border-bottom: 1px solid black; */
+}
+.user{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.name{
+    margin: 0;
+    font-size: 20px;
+}
+.username{
+    margin: 0;
+
+}
+/* chat messages section */
+#chat-container {
+ height: 400px;
+ width: 100%;
+}
+#text-messages {
+    display: flex;
+    flex-direction: column;
+    /* padding: 20px; */
+}
+#text-messages {
+    background-color: green;
+    width:100%;
+    height: 75%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
+#chat-container {
+    width: 70%;
+}
+#selected-user-name{
+    background-color: blue;
+    height: 15%;
+}
+#selected-user-name h2 {
+    margin: 0;
+    padding: 10px;
+}
+.receieved-message {
+    padding: 20px;
+}
+.sent-message {
+    text-align: end;
+    padding: 20px;
+}
+
+/* message box */
+#send-message-container {
+    height: 10%;
+    background-color: brown;
+}
+#message-form {
+    height: 100%;
+    display: flex;
+}
+#message-form input {
+    height: 95%;
+    padding: 0;
+    border: 1px solid black;
+    width: 85%;
+}
+#send-button {
+    width: 15%;
+}

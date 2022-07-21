@@ -6,11 +6,14 @@ const { connectToDb } = require("./functions/functions");
 const { userRoute } = require("./routes/user");
 const express = require("express");
 const app = express();
+const cors = require('cors')
+const path = require('path')
 
 //connectiong to mongoDB
 connectToDb();
 
 //routes
+app.use(express.static(path.join(__dirname, "/public")))
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
 const PORT = process.env.PORT || 8080;

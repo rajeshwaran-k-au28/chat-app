@@ -30,6 +30,7 @@ function hashPassword(password) {
 //main functions
 //jwt authentication function
 function authenticateToken(req, res, next) {
+  // cl(req.headers)
   cl("Authenticating JWT token..");
   let token = req.headers["jwttoken"];
   if (!token) {
