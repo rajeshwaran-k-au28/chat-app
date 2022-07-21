@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGN IN</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <form class="form" method="post" action="/signup" onsubmit="return validation()">
+        <h1>Sign Up</h1>
+        <div class="name">
+            <input type="text" name="name" placeholder="Enter Your Name">
+        </div>
+        <div class="name">
+            <input type="text" name="username" placeholder="chose an username">
+        </div>
+        <div class="email">
+            <input type="email" name="email" placeholder="Emale Address">
+        </div>
+        <div class="password">
+            <input type="password" name="password" placeholder="Password" id="password">
+            <span id="pass"> </span>
+        </div>
+        <div class="Repeat-password">
+            <input type="password" placeholder="Repeat Password">
+        </div>
+        <div class="btn">
+            <button type="submit">SIGN UP</button>
+        </div>
+        <span class="text">ALREADY HAVE AN ACCOUNT ? <a href="#">SIGN IN</a></span>
+    </form>
+
+</body>
+</html>

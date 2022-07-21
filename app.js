@@ -4,16 +4,15 @@ const { conversationRoute } = require("./routes/conversation");
 const { messagesRoute } = require("./routes/message");
 const { connectToDb } = require("./functions/functions");
 const { userRoute } = require("./routes/user");
+const path = require("path")
 const express = require("express");
 const app = express();
-const cors = require('cors')
-const path = require('path')
-
+app.use(express.static(path.join(__dirname , "/client")))
 //connectiong to mongoDB
 connectToDb();
 
-//routes
-app.use(express.static(path.join(__dirname, "/public")))
+// //routes
+// app.use(express.static(path.join(__dirname, "/public")))
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
 const PORT = process.env.PORT || 8080;
