@@ -78,13 +78,15 @@ async function generateToken(username, password) {
 }
 
 // add new user (signup)
-async function signupUser(name, username, password) {
+async function signupUser(name, username, password, email) {
   // await connectToDb()
   let hash = hashPassword(password);
   let newUser = new userModel({
     name: name,
     username: username,
-    hash: hash,
+    email:email,
+    hash: hash
+  
   });
   try {
     cl("Adding new user..");

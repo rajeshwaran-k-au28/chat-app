@@ -32,8 +32,8 @@ app.get("/signup", (req,res) =>{
 
 })
 app.post("/signup", async (req, res) => {
-  let { name, username, password } = req.body;
-  let response = await signupUser(name, username, password);
+  let { name, username, password, email } = req.body;
+  let response = await signupUser(name, username, password, email);
   res.json(response);
 });
 
