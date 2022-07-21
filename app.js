@@ -10,7 +10,8 @@ const app = express();
 app.use(express.static(path.join(__dirname , "/client")))
 //connectiong to mongoDB
 connectToDb();
-
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 // //routes
 // app.use(express.static(path.join(__dirname, "/public")))
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);

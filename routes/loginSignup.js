@@ -3,8 +3,9 @@ const app = express();
 const path = require('path')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
+const { authenticateToken } = require("../functions/functions");
 app.use(bodyParser.urlencoded());
-app.use(cookieParser())
+// app.use(cookieParser())
 const {
   generateToken,
   signupUser,
@@ -13,7 +14,7 @@ const {
 //send loginpage
 app.get("/login", (req,res)=>{
   console.log("sending login page..")
-  res.sendFile(path.join(__dirname, '..', '/public/login.html'))
+  res.sendFile(path.join(__dirname, '..', '/client/signin.html'))
 })
 
 app.get("/login", (req,res)=>{
@@ -32,13 +33,21 @@ app.post("/login", async (req, res) => {
     res.cookie("jwttoken", response.jwtToken, {
       httpOnly: false  
     })
-    res.header(response);
-    res.sendFile(path.join(__dirname, "..", "/public/dashboard.html"));
+    // console.log("writing headers..")
+    // console.log(response)
+    // res.setHeader(response);
+    //redirects to dashboard
+    res.redirect('/dashboard');
+    // res.sendFile(path.join(__dirname, "..", "/client/dashboard.html"));
   } else {
-    res.json(response);
+    res.sendFile(path.join(__dirname, '..', '/client/signin.html'))
   }
 });
 
+//send dashboard
+app.get("/dashboard", authenticateToken, (req,res)=>{
+  res.sendFile(path.join(__dirname, "..", "/client/dashboard.html"));
+})
 app.get("/signup", (req,res) =>{
   console.log("inside get route signup")
   res.sendFile(path.join(__dirname,"..","/client/signUp.html"))

@@ -30,9 +30,9 @@ function hashPassword(password) {
 //main functions
 //jwt authentication function
 function authenticateToken(req, res, next) {
-  // cl(req.headers)
+  // cl(req.cookies)
   cl("Authenticating JWT token..");
-  let token = req.headers["jwttoken"];
+  let token = req.cookies.jwttoken
   if (!token) {
     return res.send("Please login again.");
   }
