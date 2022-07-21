@@ -10,6 +10,7 @@ const app = express();
 //connectiong to mongoDB
 connectToDb();
 
+//routes
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
 const PORT = process.env.PORT || 8080;
