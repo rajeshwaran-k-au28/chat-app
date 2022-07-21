@@ -4,9 +4,10 @@ const { conversationRoute } = require("./routes/conversation");
 const { messagesRoute } = require("./routes/message");
 const { connectToDb } = require("./functions/functions");
 const { userRoute } = require("./routes/user");
+const path = require("path")
 const express = require("express");
 const app = express();
-
+app.use(express.static(path.join(__dirname , "/client")))
 //connectiong to mongoDB
 connectToDb();
 
