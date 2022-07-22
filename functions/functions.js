@@ -34,11 +34,10 @@ function authenticateToken(req, res, next) {
   cl("Authenticating JWT token..");
   let token = req.cookies.jwttoken
   if (!token) {
-    return res.send("Please login again.");
-  }
+    res.redirect("/login")}
   jwt.verify(token, process.env.signature, (err, decodedToken) => {
     if (err) {
-      return res.send("Please login again.");
+      res.redirect("/login")
     }
     cl("Authentication successful!");
     next();

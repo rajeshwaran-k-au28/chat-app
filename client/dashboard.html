@@ -6,69 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboardstyle.css">
     <title>DashBoard</title>
+    <script src="https://kit.fontawesome.com/ce5b5e88ea.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="container">
         <div id="users-container">
-            <section id="users-list-header"><h2>My chat list</h2></section>
-            <ul id="list-of-users">
-                <li class="user-line">
-                    <div class="user">
-                        <p class="name">Rajesh</p>
-                        <p class="username"><small> @rajeshhxh</small></p> 
-                    </div>
-                </li>
-
-                <li class="user-line">
-                    <div class="user">
-                        <p class="name">Taiyab</p>
-                        <p class="username"><small>@taiyabb</small></p> 
-                    </div>
-                </li>
-            </ul>
+            <div id="user-list-container">
+                <section id="users-list-header"><h2>ChatUp</h2></section>
+                <ul id="list-of-users">
+                </ul>
+            </div>
+           
         </div>
 
         <div id="chat-container">
             <section id="selected-user-name">
-                <h2>Rajesh</h2>
+                <i class="user-icon fa-solid fa-user"></i>
+                <h2 id="selected-user-name-header"></h2>
+               
             </section>
                 <section id="text-messages-container">
-                    <div class="message-bubble">
-                        <div class="receieved-message"><p class="text">Hello</p></div>
-                        <div class="r-empty-div"></div>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="sent-message"><p class="text">Hello to you too!</p></div>
-                        <div class="s-empty-div"></div>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="receieved-message"><p class="text">Hello</p></div>
-                        <div class="r-empty-div"></div>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="sent-message"><p class="text">Hello to you too!</p></div>
-                        <div class="s-empty-div"></div>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="receieved-message"><p class="text">Hello</p></div>
-                        <div class="r-empty-div"></div>
-                    </div>
-                    <div class="message-bubble">
-                        <div class="sent-message"><p class="text">Hello to you too!</p></div>
-                        <div class="s-empty-div"></div>
-                    </div>
-                    
-                    
+                    <h2 id="intro-header">Select an user to continue chatting..</h2>
                 </section>
-
-            <section id="send-message-container">
-                <form action="#" id="message-form">
-                    <input type="text" name="message" id="message-box" placeholder="start typing..">
-                    <button id="send-button" type="submit">send</button>
-                </form>
-            </section>
+                <section id="send-message-container">
+                    <form autocomplete="off"  action="#" id="message-form">
+                        <input autocomplete="off"  type="text" name="message" id="message-box" placeholder="start typing..">
+                        <button id="send-button" type="submit"><i class="send-paper-icon fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </section>
         </div>
     </div>
-
+<script type="module" src="js/dashboard.js"></script>
 </body>
 </html>

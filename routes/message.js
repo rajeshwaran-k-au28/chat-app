@@ -11,7 +11,6 @@ app.post("/message", authenticateToken, async (req,res)=>{
     try {
         let newMessage = new messageModel(req.body)
         await newMessage.save()
-        console.log(newMessage)
         res.sendStatus(200)
     } catch (error) {
         res.sendStatus(500).json(error)
