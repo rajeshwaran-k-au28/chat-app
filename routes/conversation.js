@@ -11,15 +11,14 @@ const { messageModel } = require("../models/Message");
 app.post("/conversation",authenticateToken, async (req, res) => {
   //search in db to check if conversation exist
   let data = [req.body.senderId, req.body.receieverId ];
-  console.log(req.body)
+  // console.log(req.body)
   try {
     let oldConvo  = await conversationModel.findOne({members:{$all :data}});
     
     if (oldConvo) {
-      console.log( "oldCovo found!! :",oldConvo)
+      // console.log( "oldCovo found!! :",oldConvo)
       let convoId = oldConvo._id;
       let messages = await messageModel.find({conversationId:convoId});
-      console.log(messages);
       return res.json({ convoId, messages });
     }
     console.log("Creating new convo model..");
