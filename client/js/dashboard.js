@@ -29,7 +29,7 @@ async function main() {
     let faEl = event.target.parentElement.parentElement.lastElementChild
     faEl.classList ="user-icon fa-solid fa-circle-arrow-right"
 
-    // add focus classes for the selcted elements
+    // add focus classes for the selected elements
     let userLine = event.target.parentElement.parentElement
     let nameEl = event.target.parentElement.firstElementChild
     nameEl.classList.toggle("name-focus-class")
@@ -40,5 +40,27 @@ async function main() {
    for (let i = 0; i < userLines.length; i++) {
      userLines[i].addEventListener("click", keepFocused)
    }
+   // handle logout 
+   const logout = () => {
+    document.cookie = "jwttoken=;expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+    window.localStorage.clear();
+    window.location.reload(true);
+    //delte token from cookies
+  
+  //   function deleteAllCookies() {
+  //     var cookies = document.cookie.split(";");
+  
+  //     for (var i = 0; i < cookies.length; i++) {
+  //         var cookie = cookies[i];
+  //         var eqPos = cookie.indexOf("=");
+  //         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+  //         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  //     }
+  // }
+  // deleteAllCookies()
+  };
+  let logoutEl = document.getElementsByClassName("log-out-icon")[0]
+  logoutEl.addEventListener("click", logout)
+
 }
 main();

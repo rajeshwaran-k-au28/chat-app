@@ -35,8 +35,41 @@ export function addMessageDiv(event) {
   updateMessageDb(message)
 }
 
+// insert data about-list from recieverId (user clicked)
+async function insertAbout(receieverId) {
+      // get userinfo from /userinfo/:userid
+      let response = await fetch(`/userinfo/${receieverId}`, {headers:{
+        jwttoken: getFromCookie("jwttoken")
+      }})
+      let data = await response.json()
+      if(!data.phone) {
+        data.phone = "Not Available"
+      }
+      let template = `<li class="about-line" id="name">
+                          <i class=" about-icon fa-solid fa-file-signature"></i>
+                          <p class="about-text">${data.name} </p>
+                      </li>
+                      <li class="about-line" id="username">
+                          <i class=" about-icon fa-solid fa-user-astronaut"></i>
+                          <p class="about-text">@${data.username}</p>
+                      </li>
+                      <li class="about-line" id="email">
+                          <i class="about-icon fa-solid fa-envelope"></i>
+                          <p class="about-text">${data.email}</p>
+                      </li>
+                      <li class="about-line" id="phone">
+                          <i class="about-icon fa-solid fa-phone"></i>
+                          <p class="about-text">${data.phone}</p>
+                      </li>`
+      let aboutListEl = document.getElementById("about-list")
+      aboutListEl.innerHTML = template
+      let aboutContainer = document.getElementById("about-container")
+      aboutContainer.style = "visibility:visible"
+}
+
 //insert messages from database
 export function insertMessages(userName,messages,receieverId,currUserId) {
+
     let selectedUserNameHeaderEl = document.getElementById("selected-user-name-header")
     selectedUserNameHeaderEl.innerText = userName
     
@@ -56,19 +89,18 @@ export function insertMessages(userName,messages,receieverId,currUserId) {
             </div>`
             messageEl.innerHTML += template
         }
-    }   );
+    } );
+
   }
   export async function getMessages(event) {
     let messageEl = document.getElementById("text-messages-container");
     messageEl.innerHTML = ""
-    //change visibility of message-box to visible
     //get recieverId from local storage
-    //change usericon to arrow icon
-
     console.log("selected user name :" , event.target.parentElement.lastElementChild.lastElementChild.innerText)
+    //selected username and name
     let userName =
       event.target.parentElement.lastElementChild.lastElementChild.innerText;
-    let name = event.target.parentElement.firstElementChild.innerText;
+ 
        //slicing "@" from username
       userName = userName.slice(1)
       console.log("selected user username: ", userName);
@@ -89,7 +121,10 @@ export function insertMessages(userName,messages,receieverId,currUserId) {
                      receieverId:receieverId})} );
       let data = await response.json()
     console.log("data recieved from .conversation:", data);
-    //store conversationId  if messages is present or not
+ 
+    // get selected user's name to display in chat-header
+    let name = event.target.parentElement.firstElementChild.innerText;
+    //store conversationId  if messages is present (empty or not)
     let messages = data.messages
     if(messages) {
         localStorage.setItem("conversationId", data.convoId)
@@ -107,13 +142,16 @@ export function insertMessages(userName,messages,receieverId,currUserId) {
             messageEl.innerHTML = ""
         }
     }else{
+
+      //storing converstion id if messages doesn't exist
         localStorage.setItem("conversationId", data)
     }
+    //change visibility of chat-container to visible
     let chatContainer = document.getElementById("chat-container")
     chatContainer.style.visibility = "visible"
     scrollDown()
+    insertAbout(receieverId)
 
-      
     } else {
       console.log("ERROR : Reciever Id not found");
     }

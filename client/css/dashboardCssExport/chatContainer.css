@@ -1,8 +1,8 @@
 /* chat messages section */
 #chat-container {
-    height: 92%;
+    height: 100%;
     width: 50%;
-    margin: 25px 0 10px 0;
+    /* margin: 25px 0 10px 0; */
     visibility: hidden;
    }
    /* #text-messages {
