@@ -18,16 +18,22 @@ async function main() {
 
   //focus the clicked user by toggling class
   function keepFocused(event) {
-    // remove all focus-classes for userLine and nameEl before adding new
+    // remove focus classes for previously selcted elements
     removeFocusClass()
-    // add focus classes
+    //remove arrow icon from previously selected element
+    let arrowEl = document.getElementsByClassName("fa-circle-arrow-right")
+    if (arrowEl.length>=1) {
+        arrowEl[0].classList = "user-icon fa-solid fa-user"
+    }
+    //add arrow icon to currently selected element
+    let faEl = event.target.parentElement.parentElement.lastElementChild
+    faEl.classList ="user-icon fa-solid fa-circle-arrow-right"
+
+    // add focus classes for the selcted elements
     let userLine = event.target.parentElement.parentElement
     let nameEl = event.target.parentElement.firstElementChild
-
     nameEl.classList.toggle("name-focus-class")
     userLine.classList.toggle("user-line-focus-class")
-    console.log(userLine.classList)
-
   }
   // event listener for name class to focus on the selected user
    let userLines = document.getElementsByClassName("name");

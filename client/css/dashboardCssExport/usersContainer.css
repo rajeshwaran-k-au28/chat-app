@@ -7,6 +7,7 @@
     text-align: center;
     margin: 10px 0 10px 0;
 }
+
 #user-list-container {
     width:100%;
     height: 100%;
@@ -22,6 +23,8 @@
     height: 15%;
     border-radius: 0 10px 0 0;
 }
+
+
 #users-list-header h2 {
     margin: 23px 23px 23px 0;
     padding: 20px;
@@ -35,8 +38,18 @@
     list-style: none;
     margin: 0;
     padding: 5px;
+    height: 85%;
+    overflow-x: hidden;
    
 }
+
+ /* customize scrollbar */
+ #list-of-users::-webkit-scrollbar {
+    width: 0.3em;
+  }
+  #list-of-users::-webkit-scrollbar-thumb {
+    background-color: #303347
+  }
 .user-line {
     /* background-color: #081d34; */
     background-color: #303347;
@@ -68,6 +81,7 @@
 .user-line-focus-class {
     padding: 10px;
     background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% );
+    width: 95%;
 }
 .name:hover{
     cursor: pointer;
@@ -87,8 +101,5 @@
 
 .username{
     margin: 0;
-    color: #9799a1;
-}
-.username:hover{
-    color: #c7c9d0;;
+    color: #b7bbc9;
 }

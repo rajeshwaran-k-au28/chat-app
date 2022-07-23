@@ -3,7 +3,7 @@ import { scrollDown, getFromCookie } from "./helperfunctions.js";
 // creates template using data from getUsers() func and append
 //it to element list-of-user in html and also stores user's username and id in localstorage as key:value
 export function generateUsersList(data) {
-    console.log(data);
+
     let listel = document.getElementById("list-of-users");
     for (let i = 0; i < data.length; i++) {
       let template = `<li class="user-line" tabindex="0">

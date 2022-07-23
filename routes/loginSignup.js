@@ -64,19 +64,23 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//send dashboard
+//send dashboard.html after verifying token
 app.get("/dashboard", authenticateToken, (req,res)=>{
   res.sendFile(path.join(__dirname, "..", "/client/dashboard.html"));
 })
+//send signup.html
 app.get("/signup", (req,res) =>{
-  console.log("inside get route signup")
   res.sendFile(path.join(__dirname,"..","/client/signUp.html"))
 
 })
+// verify signup data and redirect to login page if user created 
+//else render signup page  and send
 app.post("/signup", async (req, res) => {
   let { name, username, password, email } = req.body;
   let response = await signupUser(name, username, password, email);
-  res.json(response);
+  if (!response) return res.redirect("/login")
+  return res.json(response)
+
 });
 
 module.exports = { loginSignupRoute: app };

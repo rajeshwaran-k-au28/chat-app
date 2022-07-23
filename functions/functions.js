@@ -80,23 +80,25 @@ async function generateToken(username, password) {
 // add new user (signup)
 async function signupUser(name, username, password, email) {
   // await connectToDb()
-  let hash = hashPassword(password);
-  let newUser = new userModel({
-    name: name,
-    username: username,
-    email:email,
-    hash: hash
-  
-  });
-  try {
-    cl("Adding new user..");
-    await newUser.save();
-    cl(`${name} user has been created successfully`);
-    return `${name} user has been created successfully`;
-  } catch (error) {
-    cl(error);
-    return error;
+  let userDontExist = await userModel.isEmailDuplicate(email)
+  if(!userDontExist) return "Email In Use!"
+    let hash = hashPassword(password);
+    let newUser = new userModel({
+      name: name,
+      username: username,
+      email:email,
+      hash: hash
+    });
+    try {
+      cl("Adding new user..");
+      await newUser.save();
+      cl(`${name} user has been created successfully`);
+      return 
+    } catch (error) {
+      cl(error);
+      return error;
+    }
   }
-}
+
 
 module.exports = { connectToDb, authenticateToken, generateToken, signupUser };

@@ -18,7 +18,18 @@ const userSchema = new mongoose.Schema({
         required:true
     }
 }) 
+//static function to check email before creating user model
+userSchema.statics.isEmailDuplicate = async function(email) {
+    try {
+        let userExist = await this.findOne({email})
+        if(userExist) return false
+        return true
+    } catch (error) {
+        console.log(error)
+        return false
+    }
 
+}
 const userModel = mongoose.model("users", userSchema);
 
 module.exports = {userModel}

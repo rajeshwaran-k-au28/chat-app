@@ -9,23 +9,30 @@
     <script src="signIn.js" defer></script>
 </head>
 <body>
+    <div id="container">
+        <div id="quote-container">
+            <h1 id="quote">“I do not exist to impress the world. I exist to live my life in a way that will make me happy.”
+                </h1><i id="author-name">-Richard Bach</i>
+        </div>
     
-    <form class="form" method="post" action="/login">
-        <h1>Sign In</h1>
-        <div class="email">
-            <input type="text" name="username" placeholder="username">
-        </div>
-        <div class="password">
-            <input type="password" name="password" placeholder="Password">
-        </div>
-        <div class="btn">
-            <button type="submit">SIGN IN</button>
-        </div>
-        <div class="span">
-            <span class="text">ALREADY HAVE AN ACCOUNT ? <a href="/signup">SIGN UP</a></span>
-        </div>
-    </form>
-    <div class="bg"></div>
-
+        <form class="form" method="post" action="/login">
+            <h1>Sign In</h1>
+            <div class="email">
+                <input type="text" name="username" placeholder="username">
+            </div>
+            <div class="password">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="btn">
+                <button type="submit">SIGN IN</button>
+            </div>
+            <div class="span">
+                <span class="text">Not registered?<a href="/signup">Create account</a></span>
+            </div>
+        </form>
+        <div class="bg"></div>
+    
+    </div>
+   
 </body>
 </html>

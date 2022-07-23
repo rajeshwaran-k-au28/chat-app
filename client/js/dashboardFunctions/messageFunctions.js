@@ -63,6 +63,8 @@ export function insertMessages(userName,messages,receieverId,currUserId) {
     messageEl.innerHTML = ""
     //change visibility of message-box to visible
     //get recieverId from local storage
+    //change usericon to arrow icon
+
     console.log("selected user name :" , event.target.parentElement.lastElementChild.lastElementChild.innerText)
     let userName =
       event.target.parentElement.lastElementChild.lastElementChild.innerText;
@@ -110,7 +112,7 @@ export function insertMessages(userName,messages,receieverId,currUserId) {
     let chatContainer = document.getElementById("chat-container")
     chatContainer.style.visibility = "visible"
     scrollDown()
-      // if atleast one message present add the messages else rename and clear page 
+
       
     } else {
       console.log("ERROR : Reciever Id not found");
