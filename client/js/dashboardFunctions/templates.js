@@ -41,7 +41,7 @@ export function sentMessage(message, time) {
             return template
 }
 export function recievedMessage(message,time) {
-    time = Date(time)
+    // time = Date(time)
     let template = `<div class="message-bubble">
     <div class="receieved-message"><p class="text">${message}</p><small class="recieved-time">${time}</small></div>
     <div class="r-empty-div"></div>

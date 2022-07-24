@@ -75,7 +75,9 @@
 
 .user-line:hover {
     padding: 10px;
-    background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% );
+    background-color: 
+    #965de9;
+    /* background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% ); */
 }
 
 .name{
@@ -86,7 +88,7 @@
 }
 .user-line-focus-class {
     padding: 10px;
-    background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% );
+    background-color:  #965de9;
     width: 95%;
 }
 .name:hover{

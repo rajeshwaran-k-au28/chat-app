@@ -1,6 +1,6 @@
 import { scrollDown, getFromCookie } from "./helperfunctions.js";
 import {aboutUserTemplate,sentMessage,recievedMessage} from "./templates.js"
-
+import { socket } from "../dashboard.js";
 
 // upload message to DB with convoId, senderId and textData 
 export function updateMessageDb(textData){
@@ -21,12 +21,24 @@ export function updateMessageDb(textData){
 
 // take value from input box and add it to textMessagesContainerEl
 export function addMessageDiv(event) {
+
   event.preventDefault();
   let textMessagesContainerEl = document.getElementById(
     "text-messages-container"
   );
   let messageBoxEl = document.getElementById("message-box");
   let message = messageBoxEl.value;
+
+  //get recieverid
+  let recieverUserEl = document.getElementsByClassName("name-focus-class")[0]
+  let recieverUserName = recieverUserEl.parentElement.lastElementChild.innerText
+  recieverUserName = recieverUserName.slice(1);
+  let recieverUserId = localStorage.getItem(recieverUserName)
+  //emit message 
+  socket.emit("privateMessage", 
+     {message:message, 
+      receieverId:recieverUserId})
+
   let template = sentMessage(message) 
   textMessagesContainerEl.innerHTML += template;
   scrollDown();

@@ -33,6 +33,7 @@
        text-align:justify;
        display: flex;
        flex-direction: column;
+       
    }
    /* customize scrollbar */
    #text-messages-container::-webkit-scrollbar {

@@ -7,6 +7,31 @@ const { userRoute } = require("./routes/user");
 const path = require("path")
 const express = require("express");
 const app = express();
+
+// socket server
+const server = require("http").createServer(app)
+const socketio = require("socket.io")
+const io = socketio(server)
+
+const onlineUsersId = {};
+const onlineUsersSocketId = {}
+io.on("connection", (socket)=>{
+  socket.on("login", (data)=>{
+    onlineUsersId[data.onlineUser] =socket.id
+    onlineUsersSocketId[socket.id] = data.onlineUser
+    console.log(onlineUsersId, onlineUsersSocketId)
+  })
+  socket.on("privateMessage", (data)=>{
+    let senderId = onlineUsersSocketId[socket.id]
+    let recieverUserId =  onlineUsersId[data.receieverId]
+    if(recieverUserId){
+      console.log(recieverUserId,senderId);
+      socket.to(recieverUserId).emit("newMessage", {senderId:senderId, 
+        message:data.message}) 
+    }
+  })
+})
+
 app.use(express.static(path.join(__dirname , "/client")))
 //connectiong to mongoDB
 connectToDb();
@@ -17,6 +42,6 @@ app.use(cookieParser())
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);
 });

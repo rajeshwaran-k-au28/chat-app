@@ -31,7 +31,7 @@ function hashPassword(password) {
 //jwt authentication function
 function authenticateToken(req, res, next) {
   // cl(req.cookies)
-  cl("Authenticating JWT token..");
+  // cl("Authenticating JWT token..");
   let token = req.cookies.jwttoken
   if (!token) {
     res.redirect("/login")}
@@ -39,7 +39,7 @@ function authenticateToken(req, res, next) {
     if (err) {
       res.redirect("/login")
     }
-    cl("Authentication successful!");
+    // cl("Authentication successful!");
     next();
   });
 }

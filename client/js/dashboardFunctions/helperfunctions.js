@@ -1,3 +1,4 @@
+
 export function removeFocusClass () {
     let nameFocus = document.getElementsByClassName("name-focus-class")
     if(nameFocus.length > 0) {
