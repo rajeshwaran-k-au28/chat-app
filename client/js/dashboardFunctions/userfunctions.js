@@ -1,7 +1,8 @@
+import {removeFocusClass, keepFocused} from "./helperfunctions.js"
+import { addMessageDiv, getMessages, insertAbout} from "./messageFunctions.js"
 import { scrollDown, getFromCookie } from "./helperfunctions.js";
-
 // creates template using data from getUsers() func and append
-//it to element list-of-user in html and also stores user's username and id in localstorage as key:value
+//it to element list-of-user in html 
 export function generateUsersList(data) {
 
     let listel = document.getElementById("list-of-users");
@@ -13,7 +14,7 @@ export function generateUsersList(data) {
               </div>
           <i class="user-icon fa-solid fa-user"></i>
       </li>`;
-      
+      // stores user's username and id in localstorage as key:value
       window.localStorage.setItem(`${data[i][1]}`, `${data[i][2]}`);
       listel.innerHTML += template;
     }
@@ -21,7 +22,7 @@ export function generateUsersList(data) {
     scrollDown();
   }
 
-  //fetch users list from '/users/:userid'(userid : logged in userid) endpoint and call generateUsersList()
+//fetch users list  and call generateUsersList()
 export async function getUsers() {
     // get jwt token and currUserId from cookies
     let jwttoken = getFromCookie("jwttoken");
@@ -38,3 +39,14 @@ export async function getUsers() {
     //   console.log(data)
     generateUsersList(data);
   }
+ // add curr user prof info
+export async function currUserProfile() {
+  let chatContainer = document.getElementById("chat-container")
+  chatContainer.style.visibility = "hidden"
+  document.getElementById("intro-header").style = "visibility:visible"
+  await insertAbout(localStorage.getItem("currUser"), true)
+  // remove focus classes for previously selcted user list el
+  removeFocusClass()
+  let profileInfo = document.getElementById("profile-name") 
+  profileInfo.innerText = "My Profile"
+}  // handle click on brandname
