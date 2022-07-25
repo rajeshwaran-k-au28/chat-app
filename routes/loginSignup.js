@@ -83,14 +83,14 @@ app.post("/signup", async (req, res) => {
   if (response == "Email in use!") {
     var emailexist = response;
     var usernameexist = undefined;
-    return res.render(path.join(__dirname, "..", "/client/render/signUp.ejs"), {
+    return res.render(path.join(__dirname, "..", "/client/render/signup.ejs"), {
       usernameexist,
       emailexist,
     });
   } else {
     var emailexist = undefined;
     var usernameexist = response;
-    return res.render(path.join(__dirname, "..", "/client/render/signUp.ejs"), {
+    return res.render(path.join(__dirname, "..", "/client/render/signup.ejs"), {
       usernameexist,
       emailexist,
     });
