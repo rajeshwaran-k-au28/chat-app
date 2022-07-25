@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon app.js"
+    "start": "node controllers/app.js"}
   },
   "authors": "Rajeshwaran K, Taiyab gafur shaikh",
   "license": "ISC",
