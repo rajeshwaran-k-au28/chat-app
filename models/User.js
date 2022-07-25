@@ -18,11 +18,11 @@ const userSchema = new mongoose.Schema({
         required:true
     }
 }) 
-//static function to check email before creating user model
+//check duplicates for email
 userSchema.statics.isEmailDuplicate = async function(email) {
     try {
-        let userExist = await this.findOne({email})
-        if(userExist) return false
+        let emailExist = await this.findOne({email})
+        if(emailExist) return false
         return true
     } catch (error) {
         console.log(error)
@@ -30,6 +30,19 @@ userSchema.statics.isEmailDuplicate = async function(email) {
     }
 
 }
+
+//check duplicates for username
+userSchema.statics.isUsernameDuplicate = async function(username){
+    try {
+        let usernameExist = await this.findOne({username})
+        if(usernameExist) return false
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
 const userModel = mongoose.model("users", userSchema);
 
 module.exports = {userModel}

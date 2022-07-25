@@ -7,18 +7,19 @@ const { conversationModel } = require("../models/Conversation");
 const { authenticateToken } = require("../functions/functions");
 const { messageModel } = require("../models/Message");
 
-//post convo to DB and send conversation id if convo id present return with messages else just convo ID
-app.post("/conversation",authenticateToken, async (req, res) => {
+//post convo to DB and send conversation id 
+//if convo id present return with messages else just convo ID
+app.post("/conversation", authenticateToken, async (req, res) => {
   //search in db to check if conversation exist
-  let data = [req.body.senderId, req.body.receieverId ];
+  let data = [req.body.senderId, req.body.receieverId];
   // console.log(req.body)
   try {
-    let oldConvo  = await conversationModel.findOne({members:{$all :data}});
-    
+    let oldConvo = await conversationModel.findOne({ members: { $all: data } });
+
     if (oldConvo) {
       // console.log( "oldCovo found!! :",oldConvo)
       let convoId = oldConvo._id;
-      let messages = await messageModel.find({conversationId:convoId});
+      let messages = await messageModel.find({ conversationId: convoId });
       return res.json({ convoId, messages });
     }
     console.log("Creating new convo model..");

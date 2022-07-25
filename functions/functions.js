@@ -10,7 +10,7 @@ var cl = console.log;
 async function connectToDb() {
   try {
     cl("Connecting to database..");
-    await mongoose.connect(process.env.mongoUri);
+      mongoose.connect(process.env.mongoUri);
     cl("Connection successfull!");
     return "Connection successfull!";
   } catch (error) {
@@ -28,10 +28,9 @@ function hashPassword(password) {
 }
 
 //main functions
+
 //jwt authentication function
 function authenticateToken(req, res, next) {
-  // cl(req.cookies)
-  // cl("Authenticating JWT token..");
   let token = req.cookies.jwttoken
   if (!token) {
     res.redirect("/login")}
@@ -39,18 +38,17 @@ function authenticateToken(req, res, next) {
     if (err) {
       res.redirect("/login")
     }
-    // cl("Authentication successful!");
     next();
   });
 }
-//handles LOGIN -> verify username, password and generate jwt token
+
+//verify login credentials and generate token if success
 async function generateToken(username, password) {
-  // await connectToDb()
   try {
     cl("Finding matching account..");
     let userInfo = await userModel.findOne({ username: username });
     if (userInfo) {
-      //checking user entered password with hash from DB
+      //match password and username
       let verified = bcrypt.compareSync(password, userInfo.hash);
       if (userInfo.username == username && verified) {
         let payload = { username: username, isLogged: true };
@@ -62,26 +60,24 @@ async function generateToken(username, password) {
           jwtToken: token,
           message: "Authentication successfull",
         };
-        cl(`user "${username}" is authenticated succesfully!`);
         return response;
       } else {
-        cl("Invalid Password.");
-        return "Invalid username or password";
+        return "Invalid password";
       }
     } else {
-      cl("Username not matching.");
       return "User Not Found, please signup.";
     }
   } catch (error) {
-    return error;
+    return error
   }
 }
 
 // add new user (signup)
 async function signupUser(name, username, password, email) {
-  // await connectToDb()
   let userDontExist = await userModel.isEmailDuplicate(email)
-  if(!userDontExist) return "Email In Use!"
+  let usernameDontExist = await userModel.isUsernameDuplicate(username)
+  if(!userDontExist) return "Email in use!"
+  if(!usernameDontExist) return "Username in use!"
     let hash = hashPassword(password);
     let newUser = new userModel({
       name: name,
@@ -93,7 +89,7 @@ async function signupUser(name, username, password, email) {
       cl("Adding new user..");
       await newUser.save();
       cl(`${name} user has been created successfully`);
-      return 
+      return "userCreated"
     } catch (error) {
       cl(error);
       return error;
