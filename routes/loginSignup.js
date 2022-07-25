@@ -32,7 +32,7 @@ const {
 //send loginpage
 app.get("/", validateLoginToken, (req,res)=>{
   console.log("sending login page..")
-  res.sendFile(path.join(__dirname, '..', '/client/signin.html'))
+  res.sendFile(path.join(__dirname, "..", "/client/signIn.html"))
 })
 
 app.get("/login", (req,res)=>{

@@ -5,34 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGN In</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="signIn.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+
+
 </head>
 <body>
     <div id="container">
-        <div id="quote-container">
-            <h1 id="quote">“I do not exist to impress the world. I exist to live my life in a way that will make me happy.”
-                </h1><i id="author-name">-Richard Bach</i>
+        <div id="brand"><h1>ChatUp</h1></div>
+        <div id="form-container" >
+                <h1 id="form-header" class="form-container-element">Sign In</h1>
+                <form method="post" id="form"  onsubmit="return validations()" action="/login">           
+                        <input type="text" name="username" class="form-element form-container-element" id="username-el" placeholder="username">
+                        <span id="username-error" class="error-text"> </span>
+                        <input type="password" name="password" class="form-element form-container-element" id="password-el" placeholder="Password">
+                        <span id="password-error" class="error-text"> </span>
+                         <button type="submit" class="btn form-container-element" >sign in</button>
+                    <div>
+                        <span class="text form-group">New to ChatUp?<a href="/signup">  signup</a></span>
+                    </div>
+        
+                </form>
+            </div>
         </div>
-    
-        <form class="form" method="post" action="/login">
-            <h1>Sign In</h1>
-            <div class="email">
-                <input type="text" name="username" placeholder="username">
-            </div>
-            <div class="password">
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <div class="btn">
-                <button type="submit">SIGN IN</button>
-            </div>
-            <div class="span">
-                <span class="text">Not registered?<a href="/signup">Create account</a></span>
-            </div>
-        </form>
-        <div class="bg"></div>
-    
     </div>
-   
+    <script src="validate.js" defer></script>
 </body>
 </html>

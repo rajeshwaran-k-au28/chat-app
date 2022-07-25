@@ -7,6 +7,10 @@
    }
 #intro-header {
     visibility: visible;
+    position: absolute;
+    top:40%;
+    width: 50%;
+    text-align: center;
 }
 
 .sent-time{

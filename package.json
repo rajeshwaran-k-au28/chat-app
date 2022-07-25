@@ -4,7 +4,6 @@
   "description": "A realtime chat app with nodejs,socket.io,mongoDb ",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
     "start": "node app.js"
   },
   "authors": "Rajeshwaran K, Taiyab gafur shaikh",
