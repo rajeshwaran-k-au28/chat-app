@@ -51,7 +51,7 @@ app.use(cookieParser())
 // app.use(express.static(path.join(__dirname, "/public")))y
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
+const port = process.env.PORT || 8080;
+server.listen(port, () => {
   console.log(`App listening on ${PORT}`);
 });
