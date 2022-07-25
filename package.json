@@ -4,6 +4,7 @@
   "description": "A realtime chat app with nodejs,socket.io,mongoDb ",
   "main": "app.js",
   "scripts": {
+    "build": "cd client && npm run build",
     "test": "jest",
     "start": "node app.js"
   },
