@@ -48,7 +48,7 @@ connectToDb();
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 // //routes
-// app.use(express.static(path.join(__dirname, "/public")))
+// app.use(express.static(path.join(__dirname, "/public")))y
 app.use(loginSignupRoute, conversationRoute, messagesRoute, userRoute);
 
 const PORT = process.env.PORT || 8080;
