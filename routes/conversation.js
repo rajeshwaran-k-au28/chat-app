@@ -43,9 +43,9 @@ app.get("/conversation/:userid", authenticateToken, async (req, res) => {
       members: { $in: [req.params.userid] },
     });
     if (convo) console.log("Match found!");
-    res.json(convo);
+    return res.json(convo);
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 });
 module.exports = { conversationRoute: app };
