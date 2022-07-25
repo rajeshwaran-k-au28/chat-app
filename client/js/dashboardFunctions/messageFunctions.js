@@ -19,6 +19,20 @@ export function updateMessageDb(textData){
                     textData: textData})});
 }
 
+// socket event "privateMessage"
+function triggerprivateMessage(message){
+    //get reciever's MomgoId
+    let recieverUserEl = document.getElementsByClassName("name-focus-class")[0]
+    let recieverUserName = recieverUserEl.parentElement.lastElementChild.innerText
+    recieverUserName = recieverUserName.slice(1);
+    let recieverMongoId = localStorage.getItem(recieverUserName)
+    console.log("recieverMongoId",recieverMongoId);
+    //emit message 
+    socket.emit("privateMessage", 
+       {message:message, 
+        recieverMongoId:recieverMongoId})
+}
+
 // take value from input box and add it to textMessagesContainerEl
 export function addMessageDiv(event) {
 
@@ -28,16 +42,9 @@ export function addMessageDiv(event) {
   );
   let messageBoxEl = document.getElementById("message-box");
   let message = messageBoxEl.value;
-
-  //get recieverid
-  let recieverUserEl = document.getElementsByClassName("name-focus-class")[0]
-  let recieverUserName = recieverUserEl.parentElement.lastElementChild.innerText
-  recieverUserName = recieverUserName.slice(1);
-  let recieverUserId = localStorage.getItem(recieverUserName)
-  //emit message 
-  socket.emit("privateMessage", 
-     {message:message, 
-      receieverId:recieverUserId})
+  
+  //socket event 
+  triggerprivateMessage(message)
 
   let template = sentMessage(message) 
   textMessagesContainerEl.innerHTML += template;
@@ -96,7 +103,7 @@ export async function getMessages(event) {
     //selected username
     let userName = event.target.parentElement.lastElementChild.lastElementChild.innerText;
     //slicing @
-    userName = userName.slice(1)
+      userName = userName.slice(1)
     console.log("selected user username: ", userName);
    
     let receieverId = localStorage.getItem(userName);

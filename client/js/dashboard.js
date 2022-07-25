@@ -4,8 +4,6 @@ import { getUsers, currUserProfile} from "./dashboardFunctions/userfunctions.js"
 import { getFromCookie, scrollDown } from "./dashboardFunctions/helperfunctions.js"
 import { recievedMessage } from "./dashboardFunctions/templates.js"
 export const socket = io()
-let currUserId = getFromCookie("currUserId")
-
 
 async function onClickUser(event){
   keepFocused(event)
@@ -19,21 +17,22 @@ async function onClickUser(event){
   messageContainer.classList = localStorage.getItem(userName)
 }
 async function main() {
-  socket.emit("login", {onlineUser:localStorage.getItem("currUser")})
+  await getUsers();
+  socket.emit("login", {loggedInId:localStorage.getItem("currUser")})
+  await currUserProfile(event)
+
   socket.on("newMessage", (data)=>{
     console.log("recieved message:",data)
     let senderEl = document.getElementsByClassName(data.senderId)[0]
     console.log(data.message);
     senderEl.innerHTML += recievedMessage(data.message, "12:41")})
     scrollDown()
-  await getUsers();
-  await currUserProfile(event)
+
   // handle click on the user-
   let usersArray = document.getElementsByClassName("name");
   for (let i = 0; i < usersArray.length; i++) {
       usersArray[i].addEventListener("click", onClickUser);
-    }
-
+  }
   // add message bubble onsending message
   let sendbtnEl = document.getElementById("send-button");
   sendbtnEl.addEventListener("click", addMessageDiv);

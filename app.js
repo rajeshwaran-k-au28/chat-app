@@ -8,26 +8,36 @@ const path = require("path")
 const express = require("express");
 const app = express();
 
-// socket server
+//socket
 const server = require("http").createServer(app)
 const socketio = require("socket.io")
 const io = socketio(server)
+const onlineUsersMongoSocketId = {};
+const onlineUsersSocketMongoId = {}
 
-const onlineUsersId = {};
-const onlineUsersSocketId = {}
 io.on("connection", (socket)=>{
   socket.on("login", (data)=>{
-    onlineUsersId[data.onlineUser] =socket.id
-    onlineUsersSocketId[socket.id] = data.onlineUser
-    console.log(onlineUsersId, onlineUsersSocketId)
+    console.log("onlineUserId: ",data.loggedInId);
+    const {loggedInId} = data
+    //MongoId:socketid (returns socketId)
+    onlineUsersMongoSocketId[loggedInId] = socket.id
+    //socketid:mongoid (returns mongo id)
+    onlineUsersSocketMongoId[socket.id] = loggedInId
+    console.log("mongoId:socketId", onlineUsersMongoSocketId,
+    "socketId:mongoId", onlineUsersSocketMongoId)
   })
+  //
   socket.on("privateMessage", (data)=>{
-    let senderId = onlineUsersSocketId[socket.id]
-    let recieverUserId =  onlineUsersId[data.receieverId]
-    if(recieverUserId){
-      console.log(recieverUserId,senderId);
-      socket.to(recieverUserId).emit("newMessage", {senderId:senderId, 
+    let senderSocketId = socket.id
+    const senderMongoId = onlineUsersSocketMongoId[senderSocketId]
+    let mongoIdOfReciever = data.recieverMongoId
+    const socketIdOfreciever = onlineUsersMongoSocketId[mongoIdOfReciever]
+    if(socketIdOfreciever ){
+      socket.to(socketIdOfreciever).emit("newMessage", {senderId:senderMongoId, 
         message:data.message}) 
+    }else{
+      console.log("ERROR!! socketIdOfreciever:", socketIdOfreciever,
+      "senderMongoId:",senderMongoId);
     }
   })
 })

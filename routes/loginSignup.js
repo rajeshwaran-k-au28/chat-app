@@ -30,7 +30,7 @@ const {
 } = require("../functions/functions");
 
 //send loginpage
-app.get("/login", validateLoginToken, (req,res)=>{
+app.get("/", validateLoginToken, (req,res)=>{
   console.log("sending login page..")
   res.sendFile(path.join(__dirname, '..', '/client/signin.html'))
 })
