@@ -18,6 +18,7 @@ Once you finished signup you'll be redirected to login page from there you can s
 
 ## Dashboard
 
+![](https://drive.google.com/file/d/1L6UnQXQnI7BDpZTA8-lSnYNgSGYdoONm/view?usp=sharing)
 In the dashboard, You can see your profile info in the right side along with a logout button and the list of other users to your left. click on any user to continue chatting from where you left off.
 
 ## Send message
