@@ -5,7 +5,7 @@ A Real-time Chat Application built using **mongoDB, socket.io,nodejs,JavaScript,
 Using ChatUp you can connect with your friends and family instantly **(using sockets your messages are delivered to the receiver in an instant)**. All the **messages you sent and received are securely stored in MongoDB** powered by Microsoft Azure , So you don't need to worry about loosing your data.
 
 All **routes are protected by JSON Web Tokens.**  Your **password is hashed using bcrypt** module before it reaches our database.
-![](/screenshots/Screenshot 2022-07-30 103457.png)
+![](https://raw.github.com/rajeshwaran-k-au28/chat-app/screenshots/Screenshot 2022-07-30 103457.png)
 
 If you  see a **green dot** near an user's name it means that the **user is currently online** if its grey then the user is offline.
 
